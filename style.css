@@ -1,0 +1,569 @@
+/* --- 基本設定とリセット --- */
+body {
+    /* ★ Google Fonts を適用 */
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8; /* ★ #f8f9fa から変更 (白すぎ対策) */
+    color: #333;
+    position: relative; /* オーバーレイの基準点 */
+}
+
+/* ★ ハンバーガーメニューオープン時の背景固定 */
+body.nav-open {
+    overflow: hidden; /* スクロールを禁止 */
+}
+
+/* ★ オーバーレイ（ハンバーガーメニューオープン時）*/
+body.nav-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900; /* ヘッダーより下、コンテンツより上 */
+}
+
+
+/* リンクの基本スタイル */
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+a:hover {
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+/* コンテナ（全体の幅を調整） */
+/* ★ 修正: ヘッダーとフッターは全幅にするため、ここでの共通設定から外します */
+main {
+    max-width: 1100px; /* ★ 修正: 960px から 1100px に変更 */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- (A) ヘッダーのデザイン強化 --- */
+#header-placeholder {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffffff; /* ★ 修正: 全幅の背景をこちらに設定 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* ★ 修正: 影もこちらに設定 */
+    /* ★ スクロールエフェクト用 */
+    transition: padding 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ★ スクロール時のヘッダー */
+#header-placeholder.is-scrolled {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+#header-placeholder.is-scrolled header {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+header {
+    background-color: transparent; /* ★ 修正: 背景は親の placeholder が担当 */
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* ★ スクロールエフェクト用 */
+    transition: padding 0.3s ease;
+    
+    /* ★ 修正: 中のコンテンツを 1100px で中央寄せ */
+    max-width: 1100px; /* ★ 修正: 960px から 1100px に変更 */
+    margin: 0 auto;
+    padding: 20px;
+}
+header h1 {
+    margin: 0;
+    font-size: 1.4rem; /* ★ 修正: 1.6rem から縮小 (改行対策) */
+    font-weight: 700;
+}
+header h1 a {
+    color: #333;
+}
+
+/* ナビゲーション */
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+nav li {
+    margin-left: 15px;
+}
+nav li a {
+    color: #555;
+    font-weight: 500;
+    padding: 10px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+nav li a:hover {
+    background-color: #f4f4f4;
+    opacity: 1;
+}
+/* ★ ナビゲーションのアクティブ状態 */
+nav li a.is-active {
+    color: #007bff;
+    font-weight: 700;
+}
+
+/* ★★★ 「TOPへ戻る」ボタンのスタイル (PC) ★★★ */
+nav li a.back-to-main {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: 700;
+    border: 1px solid #ddd;
+    /* 他のリンクより少し目立たせる */
+    padding: 10px 12px;
+}
+nav li a.back-to-main:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+    opacity: 1;
+}
+/* ★★★ ここまで ★★★ */
+
+
+/* --- (B) メインコンテンツのデザイン --- */
+main {
+    background-color: #ffffff;
+    min-height: 60vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-top: 25px;
+    overflow: hidden; /* 子要素のアニメーションのため */
+}
+
+/* ヒーローセクション (トップページ) */
+.hero {
+    text-align: center;
+    padding: 50px 30px;
+    background-color: #007bff;
+    background-image: linear-gradient(45deg, #007bff 0%, #0056b3 100%);
+    color: #ffffff;
+    border-radius: 8px 8px 0 0;
+}
+.hero h2 {
+    margin-top: 0;
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+.hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* 汎用コンテンツブロック */
+.content-block {
+    margin-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+.content-block:last-child {
+    border-bottom: none;
+}
+.content-block h2 {
+    font-size: 2.2rem;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.content-block h3 {
+    color: #333;
+    font-size: 1.6rem;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 8px;
+}
+.content-block ul,
+.content-block ol {
+    padding-left: 20px;
+}
+
+/* --- (C) カード型デザインの追加 --- */
+
+/* プロジェクト一覧 (index.html) */
+.project-item { 
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 20px; 
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    /* ★ Flexbox を使用 (PC) */
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start; /* 上揃え */
+    gap: 25px; /* 画像とテキストの間隔 */
+    /* ★ ホバーエフェクトを滑らかに */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-item:hover {
+    /* ★ ホバーエフェクトを強化 */
+    transform: translateY(-8px) scale(1.02); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.project-item h4 { 
+    border-left: 5px solid #007bff;
+    padding-left: 10px;
+    margin-top: 0;
+}
+.project-tag { 
+    display: inline-block; 
+    background-color: #f0ad4e;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8rem; 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    margin-top: 5px;
+}
+.project-item[style*="border-top"] {
+    border-top: 1px dashed #ddd !important;
+}
+
+/* ★ プロジェクトの画像 (PC) */
+.project-image {
+    flex-shrink: 0; /* 画像が縮まないように */
+    width: 300px; /* 幅を固定 */
+    height: 200px; /* 高さを指定 */
+    object-fit: cover; 
+    border-radius: 8px; /* 角丸を少し大きく */
+    margin: 0; /* autoマージンを解除 */
+}
+
+/* ★ プロジェクトのテキストコンテンツ */
+.project-content {
+    flex-grow: 1; /* 残りのスペースを埋める */
+}
+
+
+/* メリット一覧 (student.html / company.html) */
+.merit-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.merit-list li {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    /* ★ ホバーエフェクト用 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.merit-list li:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.merit-list li strong {
+    color: #007bff;
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+/* --- (D) CTAボタンの追加 --- */
+.cta-button {
+    display: inline-block;
+    background-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 15px 30px;
+    border-radius: 30px;
+    text-align: center;
+    margin-top: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(240, 173, 78, 0.4);
+}
+.cta-button:hover {
+    color: #ffffff;
+    opacity: 1;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(240, 173, 78, 0.5);
+}
+.cta-section {
+    text-align: center;
+    background-color: #f0f4f8; /* ★ #f8f9fa から body と同じ色に変更 */
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* --- (F) スクロールアニメーション (★ 新規追加) --- */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- フッター (★ 大幅に修正) --- */
+#footer-placeholder {
+    width: 100%; /* フッターは全幅 */
+}
+footer {
+    background-color: #333; /* フッターの背景色 */
+    color: #eee;
+    padding: 40px 20px;
+    margin-top: 40px;
+    max-width: none; /* ★ 修正: 全幅の背景にする */
+}
+.footer-content {
+    max-width: 1100px; /* ★ 修正: 中のコンテンツを 1100px で中央寄せ */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* gap: 30px; */ /* ★ 修正: gapを削除し、space-betweenに間隔の自動調整を任せる */
+}
+
+/* ★ 修正: 堅牢なフレックスレイアウトに変更 */
+.footer-info {
+    flex-basis: 430px; /* ★ 修正: 450px から 430px に */
+    flex-shrink: 0; 
+}
+.footer-nav {
+    /* flex-basis: 420px; */ 
+    flex-grow: 1;        
+}
+.footer-social {
+    flex-basis: 150px; /* ★ 修正: 200px から 150px に */
+    flex-shrink: 0; 
+}
+/* ★★★ ここまで ★★★ */
+
+
+.footer-info h4 {
+    color: #fff;
+    margin-top: 0;
+    font-size: 1.1rem; /* ★ 修正: 1.2rem から 1.1rem に (ご要望対応) */
+}
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* ★ 修正: ここから3行追加（折り返しバグ修正） */
+    display: flex;
+    justify-content: center; /* カラム内でリンクを中央揃え */
+    gap: 20px; 
+}
+.footer-nav a {
+    color: #eee;
+    white-space: nowrap; /* ★★★ 修正: この行を戻しました ★★★ */
+}
+.footer-nav a:hover {
+    color: #007bff;
+    opacity: 1;
+}
+
+/* ★★★ アイコン用のスタイル (変更なし、HTML側の修正で適用されます) ★★★ */
+.footer-social p {
+    margin-top: 0;
+}
+.footer-social .social-icons {
+    display: flex;
+    gap: 20px; /* アイコン間のスペース */
+}
+.footer-social .social-icons a {
+    color: #eee;
+    font-size: 2rem; /* アイコンのサイズ */
+    transition: color 0.2s, transform 0.2s;
+}
+.footer-social .social-icons a:hover {
+    color: #007bff; /* ホバー時の色 */
+    transform: scale(1.1); /* ホバー時に少し拡大 */
+    opacity: 1;
+}
+/* ★★★ ここまで ★★★ */
+
+.footer-bottom {
+    max-width: 1100px; /* ★ 修正: 中のコンテンツを 1100px で中央寄せ */
+    margin: 30px auto 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid #555;
+    text-align: center;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+
+/* --- (E) レスポンスシブ対応 (ハンバーガー) --- */
+
+.hamburger-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1001; /* オーバーレイより手前 */
+}
+.hamburger-btn span {
+    display: block;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: transform 0.3s, opacity 0.3s, top 0.3s;
+    position: relative;
+}
+/* ハンバーガーが開いた時 (「×」印) */
+.hamburger-btn.is-open span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 8px;
+}
+.hamburger-btn.is-open span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-btn.is-open span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: -8px;
+}
+
+
+/* --- 画面が 768px 以下 (タブレット・スマホ) の場合のスタイル --- */
+@media (max-width: 768px) {
+    header {
+        /* ★ ハンバーガーボタンとロゴが重ならないよう調整 */
+        flex-wrap: wrap; 
+    }
+    header h1 {
+        font-size: 1.3rem; /* ★ 修正: 1.4rem だTとスマホで大きすぎるため 1.3rem に */
+        /* ★ ロゴが長いため、ボタンを避けて折り返す設定 */
+        flex-basis: calc(100% - 60px); /* 全幅 - ボタンの幅(約) */
+    }
+    .hamburger-btn {
+        display: block;
+    }
+    #global-nav {
+        display: none;
+        position: fixed; /* ★ fixedに変更して画面いっぱいに */
+        top: 0; /* ★ ヘッダーの上から */
+        left: 0;
+        right: 0;
+        bottom: 0; /* ★ 画面下まで */
+        background-color: #ffffff;
+        z-index: 1000; /* ★ ボタンのすぐ下 */
+        padding-top: 80px; /* ★ ヘッダーの高さ分あける */
+        overflow-y: auto; /* メニューが多い場合に備える */
+    }
+    #global-nav.is-open {
+        display: block;
+    }
+    #global-nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    #global-nav li {
+        margin-left: 0;
+        width: 100%;
+        text-align: center; /* ★ 中央揃え */
+    }
+    #global-nav li a {
+        display: block;
+        padding: 20px; /* ★ paddingを大きく */
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 1.1rem; /* ★ フォントサイズを大きく */
+    }
+    #global-nav li:last-child a {
+        border-bottom: none;
+    }
+    
+    /* ★★★ スマホ時の「TOPへ戻る」ボタン ★★★ */
+    nav li a.back-to-main {
+        background-color: #007bff; /* テーマカラーで目立たせる */
+        color: #ffffff;
+        border-bottom: 1px solid #0056b3; /* 他の線と区別 */
+    }
+    nav li a.back-to-main:hover {
+        background-color: #0056b3;
+    }
+    /* ★★★ ここまで ★★★ */
+
+
+    /* ★ ヘッダーのスクロールエフェクトをスマホでは無効化 */
+    #header-placeholder.is-scrolled header {
+        padding-top: 20px; /* 元のpaddingに戻す */
+        padding-bottom: 20px;
+    }
+
+    /* メインコンテンツの調整 */
+    main {
+        padding: 15px;
+        margin-top: 15px;
+    }
+    .hero h2 {
+        font-size: 2.0rem;
+    }
+    .content-block h2 {
+        font-size: 1.8rem;
+    }
+    
+    /* カード型レイアウトを1カラムに */
+    .merit-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* ★ index.html プロジェクトレイアウト (スマホ) */
+    .project-item {
+        flex-direction: column; /* 縦積みに変更 */
+        gap: 15px;
+    }
+    .project-image {
+        width: 100%; /* 幅を100%に */
+        height: auto; /* 高さを自動に */
+        max-height: 250px; /* 最大高さを設定 */
+    }
+    
+    /* ★ フッター (スマホ) */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-info, .footer-nav, .footer-social {
+        flex-basis: auto; /* ★ 修正: PCでの指定を解除 */
+        flex-shrink: 1;   /* ★ 追加: スマホでは縮むことを許可 */
+    }
+    /* ★ スマホでアイコンを中央揃え */
+    .footer-social .social-icons {
+        justify-content: center;
+    }
+    
+    /* ★ スマホ時にフッターナビを中央揃え (PCでの指定を継承) */
+    .footer-nav {
+        text-align: center;
+    }
+
+    /* ★ 修正: スマホではフッターナビを縦並びに戻す */
+    .footer-nav ul {
+        flex-direction: column;
+        gap: 0; /* 縦並びでは gap は不要 (li の margin で制御) */
+    }
+    .footer-nav li {
+         margin-bottom: 10px; /* ★ 修正: 縦並び用のマージンを戻す */
+    }
+}
